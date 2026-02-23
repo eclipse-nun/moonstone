@@ -24,9 +24,4 @@ make -C $(pwd) O=$(pwd)/out KCFLAGS=' -w -pipe -O3' CONFIG_SECTION_MISMATCH_WARN
 make -C $(pwd) O=$(pwd)/out KCFLAGS=' -w -pipe -O3' CONFIG_SECTION_MISMATCH_WARN_ONLY=y -j$(nproc) a32_vigus_defconfig
 make -s -C $(pwd) O=$(pwd)/out KCFLAGS=' -w -pipe -O3' CONFIG_SECTION_MISMATCH_WARN_ONLY=y -j$(nproc)
 
-read -p "copy to kornol directory? (are u vigus?) y/n   " choice
-case "$choice" in 
-  y|Y ) cp out/arch/arm64/boot/Image ~/Downloads/buildkernal/Image;;
-  n|N ) echo "k";;
-  * ) echo "nvm";;
-esac
+echo "output in: out/arch/arm64/boot/Image.gz"
