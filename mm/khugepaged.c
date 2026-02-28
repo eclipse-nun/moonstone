@@ -1312,15 +1312,18 @@ static void retract_page_tables(struct address_space *mapping, pgoff_t pgoff)
 				spinlock_t *ptl;
 				unsigned long end = addr + HPAGE_PMD_SIZE;
 
-				mmu_notifier_invalidate_range_start(mm, addr, end);
+				mmu_notifier_invalidate_range_start(mm, addr,
+								    end);
 				ptl = pmd_lock(mm, pmd);
+				/* assume page table is clear */
 				_pmd = pmdp_collapse_flush(vma, addr, pmd);
 				spin_unlock(ptl);
-				mm_dec_nr_ptes(mm);
-				flush_tlb_mm(mm);
+				mm_dec_nr_ptes(vma->vm_mm);
+				atomic_long_dec(&mm->nr_ptes);
 				tlb_remove_table_sync_one();
 				pte_free(mm, pmd_pgtable(_pmd));
-				mmu_notifier_invalidate_range_end(mm, addr, end);
+				mmu_notifier_invalidate_range_end(mm, addr,
+								  end);
 			}
 			up_write(&mm->mmap_sem);
 		}
