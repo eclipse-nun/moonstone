@@ -1308,28 +1308,22 @@ static void retract_page_tables(struct address_space *mapping, pgoff_t pgoff)
 		 * the system too much.
 		 */
 		if (down_write_trylock(&mm->mmap_sem)) {
-			if (!khugepaged_test_exit(mm)) {
-				spinlock_t *ptl;
-				unsigned long end = addr + HPAGE_PMD_SIZE;
+    		if (!khugepaged_test_exit(mm)) {
+        		spinlock_t *ptl;
+        		unsigned long end = addr + HPAGE_PMD_SIZE;
 
-				mmu_notifier_invalidate_range_start(mm, addr,
-								    end);
-				ptl = pmd_lock(mm, pmd);
-				/* assume page table is clear */
-				_pmd = pmdp_collapse_flush(vma, addr, pmd);
-				spin_unlock(ptl);
-				mm_dec_nr_ptes(vma->vm_mm);
-				pmd_clear(pmd);
-				flush_tlb_mm_range(mm, addr, end, PAGE_SHIFT, false);
-				mm_dec_nr_ptes(mm);
-				spin_unlock(ptl);
-				tlb_remove_table_sync_one();
-				pte_free(mm, pmd_pgtable(_pmd));
-				mmu_notifier_invalidate_range_end(mm, addr,
-								  end);
-			}
-			up_write(&mm->mmap_sem);
-		}
+        		mmu_notifier_invalidate_range_start(mm, addr, end);
+        		ptl = pmd_lock(mm, pmd);
+        		_pmd = pmdp_collapse_flush(vma, addr, pmd);
+        		spin_unlock(ptl);
+       	 		mm_dec_nr_ptes(mm);
+        		flush_tlb_mm_range(mm, addr, end, PAGE_SHIFT, false);
+        		tlb_remove_table_sync_one();
+        		pte_free(mm, pmd_pgtable(_pmd));
+        		mmu_notifier_invalidate_range_end(mm, addr, end);
+    	}
+    	up_write(&mm->mmap_sem);
+}
 	}
 	i_mmap_unlock_write(mapping);
 }
