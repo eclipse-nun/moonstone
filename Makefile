@@ -2,7 +2,7 @@
 VERSION = 4
 PATCHLEVEL = 14
 SUBLEVEL = 356
-EXTRAVERSION = -moonstone@bTS+patch1
+EXTRAVERSION = +theAperion
 NAME = Petit Gorille
 
 # *DOCUMENTATION*
