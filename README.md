@@ -1,9 +1,9 @@
-![](banner/bTS.png)
+![](banner/tA.png)
 
 ### build guide?
 ```
 # step 1, clone the kernel source
-git clone https://github.com/eclipse-nun/moonstone.git -b beyondTheStars
+git clone https://github.com/eclipse-nun/moonstone.git -b theAperion
 cd moonstone
 
 # step 2, setup clang (recommand zyc clang 14 repo by EmanuelCN) - clone in home directory
