@@ -134,7 +134,9 @@ static unsigned int g_ptpod_opp_idx_table_segment[] = {
 	0, 2, 4, 6,
 	8, 10, 12, 14,
 	16, 18, 20, 23,
-	25, 27, 29, 31
+	25, 27, 29, 31,
+	32, 33, 34, 35,
+	36, 37, 38, 39
 };
 
 static struct g_opp_table_info g_opp_table_segment[] = {
