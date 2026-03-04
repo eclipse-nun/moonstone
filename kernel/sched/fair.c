@@ -63,8 +63,8 @@
 unsigned int sysctl_sched_latency			= 24000000ULL;
 static unsigned int normalized_sysctl_sched_latency	= 24000000ULL;
 #else // CONFIG_SCHED_BORE
-unsigned int sysctl_sched_latency			= 6000000ULL;
-unsigned int normalized_sysctl_sched_latency		= 6000000ULL;
+unsigned int sysctl_sched_latency			= 4000000ULL;
+unsigned int normalized_sysctl_sched_latency		= 4000000ULL;
 #endif // CONFIG_SCHED_BORE
 
 /*
@@ -110,8 +110,8 @@ enum sched_tunable_scaling sysctl_sched_tunable_scaling = SCHED_TUNABLESCALING_L
 unsigned int sysctl_sched_min_granularity			= 3000000ULL;
 unsigned int normalized_sysctl_sched_min_granularity	= 3000000ULL;
 #else // CONFIG_SCHED_BORE
-unsigned int sysctl_sched_min_granularity			= 750000ULL;
-unsigned int normalized_sysctl_sched_min_granularity	= 750000ULL;
+unsigned int sysctl_sched_min_granularity			= 400000ULL;
+unsigned int normalized_sysctl_sched_min_granularity	= 400000ULL;
 #endif // CONFIG_SCHED_BORE
 
 /*
@@ -139,11 +139,11 @@ unsigned int sysctl_sched_child_runs_first __read_mostly;
 unsigned int sysctl_sched_wakeup_granularity			= 4000000UL;
 unsigned int normalized_sysctl_sched_wakeup_granularity	= 4000000UL;
 #else // CONFIG_SCHED_BORE
-unsigned int sysctl_sched_wakeup_granularity			= 1000000UL;
-unsigned int normalized_sysctl_sched_wakeup_granularity	= 1000000UL;
+unsigned int sysctl_sched_wakeup_granularity			= 500000UL;
+unsigned int normalized_sysctl_sched_wakeup_granularity	= 500000UL;
 #endif // CONFIG_SCHED_BORE
 
-const_debug unsigned int sysctl_sched_migration_cost	= 33000UL;
+const_debug unsigned int sysctl_sched_migration_cost	= 20000UL;
 
 #ifdef CONFIG_SCHED_WALT
 unsigned int sysctl_sched_use_walt_cpu_util = 1;
@@ -9479,7 +9479,7 @@ static struct task_struct *detach_one_task(struct lb_env *env,
 	return NULL;
 }
 
-static const unsigned int sched_nr_migrate_break = 32;
+static const unsigned int sched_nr_migrate_break = 64;
 
 /*
  * detach_tasks() -- tries to detach up to imbalance weighted load from

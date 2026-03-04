@@ -139,7 +139,7 @@ BFQ_BFQQ_FNS(softrt_update);
 #undef BFQ_BFQQ_FNS						\
 
 /* Expiration time of sync (0) and async (1) requests, in ns. */
-static const u64 bfq_fifo_expire[2] = { NSEC_PER_SEC / 4, NSEC_PER_SEC / 8 };
+static const u64 bfq_fifo_expire[2] = { NSEC_PER_SEC / 8, NSEC_PER_SEC / 16 };
 
 /* Maximum backwards seek (magic number lifted from CFQ), in KiB. */
 static const int bfq_back_max = 16 * 1024;
@@ -148,7 +148,7 @@ static const int bfq_back_max = 16 * 1024;
 static const int bfq_back_penalty = 2;
 
 /* Idling period duration, in ns. */
-static u64 bfq_slice_idle = NSEC_PER_SEC / 125;
+static u64 bfq_slice_idle = NSEC_PER_SEC / 1000;
 
 /* Minimum number of assigned budgets for which stats are safe to compute. */
 static const int bfq_stats_min_budgets = 194;
@@ -161,10 +161,10 @@ static const int bfq_default_max_budget = 16 * 1024;
  * when an async request is served, the entity is charged the number
  * of sectors of the request, multiplied by the factor below
  */
-static const int bfq_async_charge_factor = 10;
+static const int bfq_async_charge_factor = 3;
 
 /* Default timeout values, in jiffies, approximating CFQ defaults. */
-const int bfq_timeout = HZ / 8;
+const int bfq_timeout = HZ / 16;
 
 static struct kmem_cache *bfq_pool;
 
@@ -5004,8 +5004,8 @@ static ssize_t bfq_strict_guarantees_store(struct elevator_queue *e,
 	if (__data > 1)
 		__data = 1;
 	if (!bfqd->strict_guarantees && __data == 1
-	    && bfqd->bfq_slice_idle < 8 * NSEC_PER_MSEC)
-		bfqd->bfq_slice_idle = 8 * NSEC_PER_MSEC;
+	    && bfqd->bfq_slice_idle < 1 * NSEC_PER_MSEC)
+		bfqd->bfq_slice_idle = 1 * NSEC_PER_MSEC;
 
 	bfqd->strict_guarantees = __data;
 
