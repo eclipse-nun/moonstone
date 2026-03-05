@@ -28,6 +28,10 @@
 #define PSEUDO_M4U_TEE_SERVICE_ENABLE
 #elif defined(CONFIG_MTK_CAM_SECURITY_SUPPORT)
 #define PSEUDO_M4U_TEE_SERVICE_ENABLE
+
+/* Added for mtk_iommu_v2 compatibility */
+#define ONE_SMI_PORT_NR	(32)
+
 #endif
 #endif
 

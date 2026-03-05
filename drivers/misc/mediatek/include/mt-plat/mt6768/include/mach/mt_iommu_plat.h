@@ -201,6 +201,54 @@ const struct mtk_iova_domain_data mtk_domain_array[MTK_IOVA_DOMAIN_COUNT] = {
 	 .resv_type = IOVA_REGION_REMOVE,
 	 .port_mask = {0xff, 0x1ff, 0xfff, 0xe7fff, 0x7ff}
 	},
+
+/* ---- Added for mtk_iommu_v2 compatibility (modeled from mt6853) ---- */
+
+/* Ports that require size alignment */
+unsigned int port_size_not_aligned[] = {
+	/* empty for mt6768 — no known size-unaligned ports */
+};
+
+/* IOMMU ATF command definitions */
+#define IOMMU_ATF_INDEX_MASK     F_MSK(3, 0)
+#define IOMMU_ATF_BANK_MASK      F_MSK(7, 4)
+#define IOMMU_ATF_CMD_MASK       F_MSK(16, 8)
+#define IOMMU_ATF_SET_COMMAND(m4u, bank, cmd) \
+	((m4u & IOMMU_ATF_INDEX_MASK) | \
+	 ((bank << 4) & IOMMU_ATF_BANK_MASK) | \
+	 ((cmd << 8) & IOMMU_ATF_CMD_MASK))
+
+enum IOMMU_ATF_CMD {
+	IOMMU_ATF_DUMP_SECURE_REG,
+	IOMMU_ATF_SECURITY_DEBUG_ENABLE,
+	IOMMU_ATF_SECURITY_DEBUG_DISABLE,
+	IOMMU_ATF_BANK_ENABLE_TF,
+	IOMMU_ATF_BANK_DISABLE_TF,
+	IOMMU_ATF_BANK_DUMP_INFO,
+	IOMMU_ATF_BANK_DOMAIN_CONFIG,
+	IOMMU_ATF_SECURITY_BACKUP,
+	IOMMU_ATF_SECURITY_RESTORE,
+	IOMMU_ATF_DUMP_SECURE_PORT_CONFIG,
+	IOMMU_ATF_SET_SMI_SEC_LARB,
+	IOMMU_ATF_DUMP_SMI_SEC_LARB,
+	IOMMU_ATF_CMD_COUNT
+};
+
+char *iommu_atf_cmd_name[IOMMU_ATF_CMD_COUNT] = {
+	"IOMMU_ATF_DUMP_SECURE_REG",
+	"IOMMU_ATF_SECURITY_DEBUG_ENABLE",
+	"IOMMU_ATF_SECURITY_DEBUG_DISABLE",
+	"IOMMU_ATF_BANK_ENABLE_TF",
+	"IOMMU_ATF_BANK_DISABLE_TF",
+	"IOMMU_ATF_BANK_DUMP_INFO",
+	"IOMMU_ATF_BANK_DOMAIN_CONFIG",
+	"IOMMU_ATF_SECURITY_BACKUP",
+	"IOMMU_ATF_SECURITY_RESTORE",
+	"IOMMU_ATF_DUMP_SECURE_PORT_CONFIG",
+	"IOMMU_ATF_SET_SMI_SEC_LARB",
+	"IOMMU_ATF_DUMP_SMI_SEC_LARB",
+};
+
 #endif
 	{
 	 .min_iova = 0x40000000,
@@ -213,5 +261,53 @@ const struct mtk_iova_domain_data mtk_domain_array[MTK_IOVA_DOMAIN_COUNT] = {
 };
 
 #define MTK_IOMMU_PAGE_TABLE_SHARE (1)
+
+
+/* ---- Added for mtk_iommu_v2 compatibility (modeled from mt6853) ---- */
+
+/* Ports that require size alignment */
+unsigned int port_size_not_aligned[] = {
+	/* empty for mt6768 — no known size-unaligned ports */
+};
+
+/* IOMMU ATF command definitions */
+#define IOMMU_ATF_INDEX_MASK     F_MSK(3, 0)
+#define IOMMU_ATF_BANK_MASK      F_MSK(7, 4)
+#define IOMMU_ATF_CMD_MASK       F_MSK(16, 8)
+#define IOMMU_ATF_SET_COMMAND(m4u, bank, cmd) \
+	((m4u & IOMMU_ATF_INDEX_MASK) | \
+	 ((bank << 4) & IOMMU_ATF_BANK_MASK) | \
+	 ((cmd << 8) & IOMMU_ATF_CMD_MASK))
+
+enum IOMMU_ATF_CMD {
+	IOMMU_ATF_DUMP_SECURE_REG,
+	IOMMU_ATF_SECURITY_DEBUG_ENABLE,
+	IOMMU_ATF_SECURITY_DEBUG_DISABLE,
+	IOMMU_ATF_BANK_ENABLE_TF,
+	IOMMU_ATF_BANK_DISABLE_TF,
+	IOMMU_ATF_BANK_DUMP_INFO,
+	IOMMU_ATF_BANK_DOMAIN_CONFIG,
+	IOMMU_ATF_SECURITY_BACKUP,
+	IOMMU_ATF_SECURITY_RESTORE,
+	IOMMU_ATF_DUMP_SECURE_PORT_CONFIG,
+	IOMMU_ATF_SET_SMI_SEC_LARB,
+	IOMMU_ATF_DUMP_SMI_SEC_LARB,
+	IOMMU_ATF_CMD_COUNT
+};
+
+char *iommu_atf_cmd_name[IOMMU_ATF_CMD_COUNT] = {
+	"IOMMU_ATF_DUMP_SECURE_REG",
+	"IOMMU_ATF_SECURITY_DEBUG_ENABLE",
+	"IOMMU_ATF_SECURITY_DEBUG_DISABLE",
+	"IOMMU_ATF_BANK_ENABLE_TF",
+	"IOMMU_ATF_BANK_DISABLE_TF",
+	"IOMMU_ATF_BANK_DUMP_INFO",
+	"IOMMU_ATF_BANK_DOMAIN_CONFIG",
+	"IOMMU_ATF_SECURITY_BACKUP",
+	"IOMMU_ATF_SECURITY_RESTORE",
+	"IOMMU_ATF_DUMP_SECURE_PORT_CONFIG",
+	"IOMMU_ATF_SET_SMI_SEC_LARB",
+	"IOMMU_ATF_DUMP_SMI_SEC_LARB",
+};
 
 #endif

@@ -94,4 +94,12 @@
 /* for pusedo ccu device */
 #define CCU_PSEUDO_LARBID (MTK_IOMMU_LARB_NR + 1)
 #define MISC_PSEUDO_LARBID (MTK_IOMMU_LARB_NR + 2)
+
+/* ---- Added for mtk_iommu_v2 compatibility ---- */
+#define M4U_PORT_GPU			MTK_M4U_ID(31, 31)
+#define M4U_PORT_APU			M4U_PORT_UNKNOWN
+
+#define MTK_IOMMU_M4U_COUNT		1
+#define MTK_IOMMU_BANK_COUNT		(1)
+
 #endif
