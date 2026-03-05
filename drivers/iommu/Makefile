@@ -1,11 +1,11 @@
 # SPDX-License-Identifier: GPL-2.0
 ccflags-y += -I$(srctree)/drivers/misc/mediatek/include
-ccflags-y += -I$(srctree)/drivers/misc/mediatek/include/mt-plat/$(MTK_PLATFORM)/include/
+ccflags-y += -I$(srctree)/drivers/misc/mediatek/include/mt-plat/mt6768/include/
 ccflags-y += -I$(srctree)/drivers/misc/mediatek/include/mt-plat
 ccflags-y += -I$(srctree)/drivers/misc/mediatek/mmp/
 ccflags-$(CONFIG_MTK_PSEUDO_M4U) += -I$(srctree)/drivers/misc/mediatek/pseudo_m4u/
 ccflags-y += -I$(srctree)/drivers/misc/mediatek/apusys/power/2.0/
-ccflags-y += -I$(srctree)/drivers/misc/mediatek/apusys/power/2.0/$(MTK_PLATFORM)/
+ccflags-y += -I$(srctree)/drivers/misc/mediatek/apusys/power/2.0/mt6768/
 ccflags-y += -I$(srctree)/drivers/misc/mediatek/apusys/mnoc/1.0/
 ccflags-y += -I$(srctree)/drivers/clk/mediatek/
 
